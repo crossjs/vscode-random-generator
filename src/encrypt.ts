@@ -7,13 +7,14 @@ export class Encrypt {
       if (num < radix) {
         return chars.charAt(num);
       }
-      return `${encode(Math.floor(num / radix))}${chars.charAt(num % radix)}`;
+      const remainder = num % radix;
+      return `${encode((num - remainder) / radix)}${chars.charAt(remainder)}`;
     }
     function decode(str: string): number {
       const len = str.length;
       let num = 0;
       for (let i = 0; i < len; i++) {
-        num += chars.indexOf(str.charAt(len - i - 1)) * radix * Math.pow(10, i);
+        num += chars.indexOf(str.charAt(len - i - 1)) * radix ** i;
       }
       return num;
     }
